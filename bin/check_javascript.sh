@@ -8,7 +8,7 @@ checking_javascript () {
     return
   fi
 
-  if [ $FIX == '--fix' ]; then
+  if [ "$FIX" == '--fix' ]; then
     checking_js_result=$(npx eslint --fix $JS_CONVENTION_CHECKING_DIRS)
     js_log_path=$LOGS_FILE_PATH$JS_ERROR_LOG_FILE_NAME"_"$LOG_DATE$LOGS_FILE_EXTENSION
     echo "${GREEN}[✓] Fixing completed. Please check fixed log at: \"$js_log_path\"${RESET_COLOR}\n"
