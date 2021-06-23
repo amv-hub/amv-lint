@@ -37,7 +37,7 @@ please place `-g` flag just before the name of checking feature.
 #### Fixing common problem:
 AMV Lint use PHP_CodeSniffer for checking coding convention of PHP files and use ESLint to checking for JavaScript files.
 So you can use all of their feature to perform the check. Two of them also provide the tool for fixing some of common problem.
-You can perform that fixing feature by following command:
+You can perform that fixing feature by following command:  
 ``amv lint --fix``
 
 Or fixing an individual feature by:  
