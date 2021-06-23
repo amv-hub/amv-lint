@@ -12,18 +12,19 @@ After package installed, run following command to initialize the package config:
 
 
 ## **Usage**
+#### Checking:
 After package installed, to lint your project included **checking env variable**, **checking language translation file**s, 
 check **coding consistency** and **coding convention** of **JavaScript**, **PHP**, please run following command:  
 ``amv lint``
   
-
+#### Individual Feature Checking:
 For checking individually for each feature, please provide a third parameter, included `env`, `lang`, `php`, `js`:  
 ``amv lint env``  
 ``amv lint lang``  
 ``amv lint php``  
-``amv lint js``  
-  
-  
+``amv lint js`` 
+
+#### Force to DEBUG MODE:
 By default, the checking execution will stop when first error occurs. Sometimes, you need the checking execution doesn't
 stop until the end. So, just provide `-g` flag for execution command. Notice: if you provide the individual feature for checking, 
 please place `-g` flag just before the name of checking feature.  
@@ -32,6 +33,15 @@ please place `-g` flag just before the name of checking feature.
 ``amv lint -g lang``  
 ``amv lint -g php``  
 ``amv lint -g js``  
+
+#### Fixing common problem:
+AMV Lint use PHP_CodeSniffer for checking coding convention of PHP files and use ESLint to checking for JavaScript files.
+So you can use all of their feature to perform the check. Two of them also provide the tool for fixing some of common problem.
+You can perform that fixing feature by following command:
+``amv lint --fix``
+
+Or fixing an individual feature by:  
+``amv lint php --fix``
 
 ## **Configurations**
 The general configurations file is `.amv_lint.env`, which was placed is your project root folder. It contains 

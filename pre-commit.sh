@@ -75,6 +75,12 @@ lint() {
     sh "$BIN_DIR"check_language.sh
     [ $? == 1 ] && exit 1
     exit 0
+    ;;
+  --fix)
+    sh "$BIN_DIR"check_php.sh "$PHP_CONVENTION_CHECKING_DIRS" $DEBUG_MODE --fix
+    sh "$BIN_DIR"check_javascript.sh "$JS_CONVENTION_CHECKING_DIRS" $DEBUG_MODE --fix
+    exit 0
+    ;;
   esac
 
   sh "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
