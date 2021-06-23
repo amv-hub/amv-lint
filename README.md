@@ -8,7 +8,7 @@ Run follow command in root directory of your laravel project:
   
 
 After package installed, run following command to initialize the package config:  
-``./vendor/amv-hub/amv-lint/init.sh --dev``
+``./vendor/amv-hub/amv-lint/init.sh``
 
 
 ## **Usage**
