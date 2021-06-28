@@ -1,7 +1,10 @@
 #!/bin/sh
-
-DIR=$(dirname "${BASH_SOURCE[0]}")
-
+ENV=$1
+if [[ $ENV == 'mac' ]]; then
+	DIR=$(dirname "${BASH_SOURCE[0]}")
+elif [[ $ENV == 'linux' ]]; then
+	DIR=$(dirname "$0")
+fi
 mv "$DIR"/.amv_lint.env ./.amv_lint.env
 mv "$DIR"/.eslintrc.json ./.eslintrc.json
 cp "$DIR"/pre-commit.sh /usr/local/bin/amv
