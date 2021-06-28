@@ -37,7 +37,7 @@ checking_env_variable () {
 }
 
 checking_using_of_env () {
-  use_env_directly=$(grep -rn $ENV_USING_CHECKING_DIRS -e "env([[:alnum:] ',_]*)")
+  use_env_directly=$(grep -rn $ENV_USING_CHECKING_DIRS -e "[^#]env([[:alnum:] ',_]*)")
   if [ "$use_env_directly" != '' ]; then
     echo "${RED}[✗] Failed: these following files are using environment variables directly:${RESET_COLOR}"
     echo "$use_env_directly\n"

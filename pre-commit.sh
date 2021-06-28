@@ -22,9 +22,9 @@ DIR=./vendor/$PACKAGE_NAME
 # Define text color
 . "$DIR"/bin/.color
 
-PHP_STAGED_FILES=$(git status -s | grep -E '^[^D].*\.php$'| awk '{print $2}')
-JS_STAGED_FILES=$(git status -s | grep -E '^[^D].*\.js$'| awk '{print $2}')
-STAGED_FILES=$(git status -s | grep -E '^[^D]'| awk '{print $2}')
+PHP_STAGED_FILES=$(git status -s | grep -E '^[A].*\.php$'| awk '{print $2}')
+JS_STAGED_FILES=$(git status -s | grep -E '^[A].*\.js$'| awk '{print $2}')
+STAGED_FILES=$(git status -s | grep -E '^[A]'| awk '{print $2}')
 
 if [ $DEBUG_MODE == true ]; then
   clear
