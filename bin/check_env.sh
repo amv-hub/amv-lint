@@ -1,4 +1,6 @@
-DIR=$(dirname "${BASH_SOURCE[0]}")
+#!/bin/bash
+
+DIR=$(dirname "$0")
 . "$DIR"/.color
 ENV_USING_CHECKING_DIRS=$1
 DEBUG_MODE=$2
@@ -8,7 +10,6 @@ checking_env_lines () {
   env_file_line=$?
   sh "$DIR"/utilities.sh count_file_line .env.example
   env_example_file_line=$?
-
   if [ "$env_file_line"  != "$env_example_file_line" ]; then
     echo "${RED}[✗] Not match: You cannot commit this change.${RESET_COLOR}"
     [ ! $DEBUG_MODE == 'true' ] && exit 1
@@ -20,17 +21,23 @@ checking_env_lines () {
 checking_env_variable () {
   error_flag=false
   ENV_VARIABLE=$(cat .env | sed 's;=.*;;')
-  . .env.example
+  . ./.env.example
   for var in $ENV_VARIABLE
   do
-    CHECKING_VAR="${!var=::undefined::}"
-    if [ "$CHECKING_VAR" == "::undefined::" ]; then
-      echo "${RED}[✗] Please define $var variable at .env.example${RESET_COLOR}:" ${!var}
+#    value=$(eval echo "\$$var")
+#    if [ "$value" = "" ]; then
+#        value=::undefined::
+#    fi
+    TEST="${!var=::undefined::}"
+    CHECKING_VAR="${var:=::undefined::}"
+    if [ "$TEST" = "::undefined::" ]; then
+      echo $TEST
+      echo "${RED}[✗] Please define $var variable at .env.example${RESET_COLOR}:" $value
       error_flag=true
     fi
   done
   if [ $error_flag != false ]; then
-      [ ! $DEBUG_MODE == 'true' ] && exit 1
+      [ ! $DEBUG_MODE = 'true' ] && exit 1
   else
     echo "${GREEN}[✓] Variable consistency between environment files matched.${RESET_COLOR}"
   fi

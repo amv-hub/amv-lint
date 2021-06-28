@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -f ./.amv_lint.env ]; then
     echo "${RED}[✗] The initial of package isn't done yet. Please run:${RESET_COLOR}"
@@ -11,14 +11,15 @@ fi
 PARAM2=$2
 PARAM3=$3
 PARAM4=$4
-if [ "$PARAM2" == '-g' ]; then
+if [ "$PARAM2" == '-g' ]
+then
     DEBUG_MODE=true
-elif [ "$PARAM2" == '-c' ]; then
+elif [ "$PARAM2" == '-c' ]
+then
     DEBUG_MODE=false
 fi
 
 DIR=./vendor/$PACKAGE_NAME
-echo $DIR
 # Define text color
 . "$DIR"/bin/.color
 
@@ -67,7 +68,7 @@ lint() {
     exit 0
     ;;
   env)
-    sh "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
+    bash "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
     [ $? == 1 ] && exit 1
     exit 0
     ;;
