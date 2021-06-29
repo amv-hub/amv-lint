@@ -4,7 +4,7 @@ DEBUG_MODE=$2
 FIX=$3
 checking_php () {
   if [ "$PHP_CONVENTION_CHECKING_DIRS" = '' ]; then
-    echo -e "${ORANGE}[!] There are no files to check.${RESET_COLOR}\n"
+    echo "${ORANGE}[!] There are no files to check.${RESET_COLOR}\n"
       return
   fi
 

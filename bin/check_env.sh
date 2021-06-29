@@ -39,6 +39,10 @@ checking_env_variable () {
 }
 
 checking_using_of_env () {
+  if [ "$ENV_USING_CHECKING_DIRS" = '' ]; then
+      echo -e "${ORANGE}[!] There are no file to check.${RESET_COLOR}"
+      return
+  fi
   use_env_directly=$(grep -rn $ENV_USING_CHECKING_DIRS -e "env([[:alnum:] ',_]*)"|grep "[^#]env([[:alnum:] ',_]*)")
   if [ "$use_env_directly" != '' ]; then
     echo -e "${RED}[✗] Failed: these following files are using environment variables directly:${RESET_COLOR}"

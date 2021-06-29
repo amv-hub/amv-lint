@@ -36,11 +36,12 @@ echo "=============================== Ambition Vietnam PHP Linter ==============
 
 # Check current executing file and if check staged files
 if [ $IS_STAGED_CHECKING == true ] || [ "$PARAM2" == '-c' ]; then
-    echo "${ORANGE}- We will checking for staged files.${RESET_COLOR}"
+    echo -e "${ORANGE}- We will checking for staged files.${RESET_COLOR}"
     ENV_USING_CHECKING_DIRS=$STAGED_FILES
     PHP_CONVENTION_CHECKING_DIRS=$PHP_STAGED_FILES
     JS_CONVENTION_CHECKING_DIRS=$JS_STAGED_FILES
 fi
+echo $ENV_USING_CHECKING_DIRS
 
 lint() {
   BIN_DIR=./vendor/"$PACKAGE_NAME"/bin/
@@ -137,7 +138,7 @@ hooks() {
   echo $params1
   exit 1
   if [ $params1 == 'enable' ]; then
-      cp "$DIR"/hooks/* .git/hooks/pre-commit
+      cp "$DIR"/hooks/* ./.git/hooks/pre-commit
   fi
 }
 
