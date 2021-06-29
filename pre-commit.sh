@@ -5,7 +5,6 @@ if [ ! -f ./.amv_lint.env ]; then
     echo "    ./vendor/amv-hub/amv-lint/init-linux.sh\n"
     exit 1;
 fi
-
 # Variable define
 . ./.amv_lint.env
 PARAM2=$2
@@ -23,9 +22,9 @@ DIR=./vendor/$PACKAGE_NAME
 # Define text color
 . "$DIR"/bin/.color
 
-PHP_STAGED_FILES=$(git status -s | grep -E '^[A].*\.php$'| awk '{print $2}')
-JS_STAGED_FILES=$(git status -s | grep -E '^[A].*\.js$'| awk '{print $2}')
-STAGED_FILES=$(git status -s | grep -E '^[A]'| awk '{print $2}')
+PHP_STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -e '\.php$')
+JS_STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -e '\.js$')
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM)
 
 if [ $DEBUG_MODE == true ]; then
   clear
@@ -33,7 +32,6 @@ if [ $DEBUG_MODE == true ]; then
 fi
 
 echo "=============================== Ambition Vietnam PHP Linter ===================================="
-
 # Check current executing file and if check staged files
 if [ $IS_STAGED_CHECKING == true ] || [ "$PARAM2" == '-c' ]; then
     echo -e "${ORANGE}- We will checking for staged files.${RESET_COLOR}"
