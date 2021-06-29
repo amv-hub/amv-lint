@@ -24,14 +24,9 @@ checking_env_variable () {
   . ./.env.example
   for var in $ENV_VARIABLE
   do
-#    value=$(eval echo "\$$var")
-#    if [ "$value" = "" ]; then
-#        value=::undefined::
-#    fi
     TEST=${!var+::undefined::}
     TEST="${!var=::undefined::}"
     if [ "$TEST" = "::undefined::" ]; then
-#      echo $TEST
       echo -e "${RED}[✗] Please define $var variable at .env.example${RESET_COLOR}:" $value
       error_flag=true
     fi
