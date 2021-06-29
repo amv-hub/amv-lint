@@ -41,7 +41,6 @@ if [ $IS_STAGED_CHECKING == true ] || [ "$PARAM2" == '-c' ]; then
     PHP_CONVENTION_CHECKING_DIRS=$PHP_STAGED_FILES
     JS_CONVENTION_CHECKING_DIRS=$JS_STAGED_FILES
 fi
-echo $ENV_USING_CHECKING_DIRS
 
 lint() {
   BIN_DIR=./vendor/"$PACKAGE_NAME"/bin/
@@ -85,7 +84,7 @@ lint() {
     ;;
   esac
 
-  sh "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
+  bash "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
   [ $? == 1 ] && exit 1
 
   # Checking language translation files
