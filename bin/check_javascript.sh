@@ -1,14 +1,14 @@
-. .amv_lint.env
+. ./.amv_lint.env
 JS_CONVENTION_CHECKING_DIRS=$1
 DEBUG_MODE=$2
 FIX=$3
 checking_javascript () {
-  if [ "$JS_CONVENTION_CHECKING_DIRS"  == '' ]; then
+  if [ "$JS_CONVENTION_CHECKING_DIRS"  = '' ]; then
     echo "${ORANGE}[!] There are no files to check.${RESET_COLOR}\n"
     return
   fi
 
-  if [ "$FIX" == '--fix' ]; then
+  if [ "$FIX" = '--fix' ]; then
     checking_js_result=$(npx eslint --fix $JS_CONVENTION_CHECKING_DIRS)
     js_log_path=$LOGS_FILE_PATH$JS_ERROR_LOG_FILE_NAME"_"$LOG_DATE$LOGS_FILE_EXTENSION
     echo "${GREEN}[✓] Fixing completed. Please check fixed log at: \"$js_log_path\"${RESET_COLOR}\n"

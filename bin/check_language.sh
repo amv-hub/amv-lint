@@ -1,4 +1,4 @@
-DIR=$(dirname "${BASH_SOURCE[0]}")
+DIR=$(dirname "$0")
 . "$DIR"/.color
 main_lang=en
 language_path=./resources/lang/
@@ -34,7 +34,7 @@ checking_language () {
       fi
     done
 
-    if [ $item_checking_error_flag == false ]; then
+    if [ $item_checking_error_flag = false ]; then
         echo "${GREEN}[✓] $entry${RESET_COLOR} files are matched."
     fi
   done

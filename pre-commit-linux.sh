@@ -104,7 +104,7 @@ lint() {
   sh "$BIN_DIR"check_javascript.sh "$JS_CONVENTION_CHECKING_DIRS" $DEBUG_MODE
   [ $? == 1 ] && exit 1
 
-  echo "${GREEN}=> Ok all checking passed. Congratulations !!${RESET_COLOR}"
+  echo -e "${GREEN}=> Ok all checking passed. Congratulations !!${RESET_COLOR}"
   [ $DEBUG_MODE == 'true' ] && exit 1
 }
 
