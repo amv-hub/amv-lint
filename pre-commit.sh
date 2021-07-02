@@ -24,7 +24,6 @@ DIR=./vendor/$PACKAGE_NAME
 
 PHP_STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -e '\.php$')
 JS_STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -e '\.js$')
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM)
 
 if [ $DEBUG_MODE == true ]; then
   clear
@@ -35,7 +34,7 @@ echo "=============================== Ambition Vietnam PHP Linter ==============
 # Check current executing file and if check staged files
 if [ $IS_STAGED_CHECKING == true ] || [ "$PARAM2" == '-c' ]; then
     echo -e "${ORANGE}- We will checking for staged files.${RESET_COLOR}"
-    ENV_USING_CHECKING_DIRS=$STAGED_FILES
+    ENV_USING_CHECKING_DIRS=$(git diff --cached --name-only --diff-filter=AM | grep -E '^[^config]' | awk '{print $1}')
     PHP_CONVENTION_CHECKING_DIRS=$PHP_STAGED_FILES
     JS_CONVENTION_CHECKING_DIRS=$JS_STAGED_FILES
 fi
