@@ -30,7 +30,7 @@ checking_php () {
 checking_for_development_code() {
   result=$(grep -rn $ENV_USING_CHECKING_DIRS -e "dd([[:alnum:] ',_]*)"|grep "[^#]dd([[:alnum:] ',_]*)")
   result=$(grep -rn $ENV_USING_CHECKING_DIRS -e "var_dump([[:alnum:] ',_]*)"|grep "[^#]var_dump([[:alnum:] ',_]*)")
-  if [ "result" != '' ]; then
+  if [ "$result" != '' ]; then
     echo -e "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
     echo "$result\n"
     [ ! $DEBUG_MODE == 'true' ] && exit 1
