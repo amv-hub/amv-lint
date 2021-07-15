@@ -31,19 +31,19 @@ checking_for_development_code() {
   result_a=$(grep -rn $PHP_CONVENTION_CHECKING_DIRS -e "dd([[:alnum:] ',_]*)"|grep "[^#]dd([[:alnum:] ',_]*)")
   result_b=$(grep -rn $PHP_CONVENTION_CHECKING_DIRS -e "var_dump([[:alnum:] ',_]*)"|grep "[^#]var_dump([[:alnum:] ',_]*)")
   if [ "$result_a" != '' ]; then
-    echo -e "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
+    echo "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
     echo "$result_a\n"
     [ ! $DEBUG_MODE == 'true' ] && exit 1
   else
-    echo -e "${GREEN}[✓] Checking completed, no files using development code.${RESET_COLOR}\n"
+    echo "${GREEN}[✓] Checking completed, no files using dd() function.${RESET_COLOR}"
   fi
 
   if [ "$result_b" != '' ]; then
-    echo -e "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
+    echo "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
     echo "$result_b\n"
     [ ! $DEBUG_MODE == 'true' ] && exit 1
   else
-    echo -e "${GREEN}[✓] Checking completed, no files using development code.${RESET_COLOR}\n"
+    echo "${GREEN}[✓] Checking completed, no files using var_dump() function.${RESET_COLOR}\n"
   fi
 }
 
