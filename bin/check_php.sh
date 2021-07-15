@@ -27,6 +27,20 @@ checking_php () {
   fi
 }
 
+checking_for_development_code() {
+  result=$(grep -rn $ENV_USING_CHECKING_DIRS -e "dd([[:alnum:] ',_]*)"|grep "[^#]dd([[:alnum:] ',_]*)")
+  result=$(grep -rn $ENV_USING_CHECKING_DIRS -e "var_dump([[:alnum:] ',_]*)"|grep "[^#]var_dump([[:alnum:] ',_]*)")
+  if [ "result" != '' ]; then
+    echo -e "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
+    echo "$use_env_directly\n"
+    [ ! $DEBUG_MODE == 'true' ] && exit 1
+  else
+    echo -e "${GREEN}[✓] Checking completed, no files using development code.${RESET_COLOR}\n"
+  fi
+}
+
+echo "\n${BLUE}- Checking for using development code in PHP files:${RESET_COLOR}"
+checking_for_development_code
 echo "\n${BLUE}- Checking for coding convention of PHP files:${RESET_COLOR}"
 checking_php
 exit 0
