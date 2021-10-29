@@ -28,6 +28,18 @@ checking_javascript () {
   fi
 }
 
+checking_for_using_development_code () {
+  result_a=$(grep -rn $JS_CONVENTION_CHECKING_DIRS -e "console.log([[:alnum:] ',_]*)"|grep "[^#]console.log([[:alnum:] ',_]*)")
+  if [ "$result_a" != '' ]; then
+    echo "${RED}[✗] Failed: these following files have a development code:${RESET_COLOR}"
+    echo "$result_a\n"
+    [ ! $DEBUG_MODE == 'true' ] && exit 1
+  else
+    echo "${GREEN}[✓] Checking completed, no files using console.log() function.${RESET_COLOR}"
+  fi
+}
+echo "${BLUE}- Checking for using development code in JavaScript files:${RESET_COLOR}"
+checking_for_using_development_code
 echo "${BLUE}- Checking for coding convention of JavaScript files:${RESET_COLOR}"
 checking_javascript
 exit $?
