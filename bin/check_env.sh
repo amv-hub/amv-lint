@@ -55,6 +55,8 @@ checking_using_of_env () {
 
 echo -e "${BLUE}- Checking environment variable:${RESET_COLOR}"
 checking_env_lines
+[ $? == 1 ] && exit 1
 checking_env_variable
+[ $? == 1 ] && exit 1
 checking_using_of_env
-exit 0
+[ $? == 1 ] && exit 1

@@ -30,4 +30,4 @@ checking_javascript () {
 
 echo "${BLUE}- Checking for coding convention of JavaScript files:${RESET_COLOR}"
 checking_javascript
-exit 0
+exit $?
