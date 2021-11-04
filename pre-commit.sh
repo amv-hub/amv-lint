@@ -82,6 +82,8 @@ lint() {
   esac
 
   bash "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
+  value=`cat "$CHECKING_ERROR_LOG_PATH"`
+  echo value
   [ $? == 1 ] && exit 1
 
   # Checking language translation files
