@@ -29,7 +29,7 @@ if [ $DEBUG_MODE == true ]; then
   clear
   rm -rf ./storage/logs/pre_commit_checking/*
 fi
-
+echo '' > $CHECKING_ERROR_LOG_PATH
 echo "=============================== Ambition Vietnam PHP Linter ===================================="
 # Check current executing file and if check staged files
 if [ $IS_STAGED_CHECKING == true ] || [ "$PARAM2" == '-c' ]; then
@@ -82,12 +82,12 @@ lint() {
   esac
 
   bash "$BIN_DIR"check_env.sh "$ENV_USING_CHECKING_DIRS" $DEBUG_MODE
-  value=`cat "$CHECKING_ERROR_LOG_PATH"`
-  echo value
+  echo_logs
   [ $? == 1 ] && exit 1
 
   # Checking language translation files
-  sh "$BIN_DIR"check_language.sh
+  bash "$BIN_DIR"check_language.sh
+  echo_logs
   [ $? == 1 ] && exit 1
 
   # Create logs dir if not exist
@@ -96,11 +96,13 @@ lint() {
   fi
 
   # Checking for coding convention, coding styles of PHP
-  sh "$BIN_DIR"check_php.sh "$PHP_CONVENTION_CHECKING_DIRS" $DEBUG_MODE
+  bash "$BIN_DIR"check_php.sh "$PHP_CONVENTION_CHECKING_DIRS" $DEBUG_MODE
+  echo_logs
   [ $? == 1 ] && exit 1
 
   # Checking for coding convention, coding styles of JavaScript
-  sh "$BIN_DIR"check_javascript.sh "$JS_CONVENTION_CHECKING_DIRS" $DEBUG_MODE
+  bash "$BIN_DIR"check_javascript.sh "$JS_CONVENTION_CHECKING_DIRS" $DEBUG_MODE
+  echo_logs
   [ $? == 1 ] && exit 1
 
   echo -e "${GREEN}=> Ok all checking passed. Congratulations !!${RESET_COLOR}"
@@ -142,6 +144,12 @@ hooks() {
 
 clear_logs () {
   rm -rf ./storage/logs/pre_commit_checking/*
+}
+
+echo_logs () {
+  value=`cat "$CHECKING_ERROR_LOG_PATH"`
+  echo -e $value
+  echo "" > $CHECKING_ERROR_LOG_PATH
 }
 
 "$@"

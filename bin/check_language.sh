@@ -1,5 +1,7 @@
 DIR=$(dirname "$0")
 . "$DIR"/.color
+. ./.amv_lint.env
+
 main_lang=en
 language_path=./resources/lang/
 language_list=`ls ./resources/lang`
@@ -19,7 +21,7 @@ checking_language () {
       item_checking_error_flag=false
       file_to_compare=$language_path$lang/$entry
       if [ ! -f "$language_path$lang/$entry" ]; then
-        echo "${RED}[✗] $entry file is not exist in $lang language${RESET_COLOR}"
+        echo "${RED}[✗] $entry file is not exist in $lang language${RESET_COLOR}\n" >> "$CHECKING_ERROR_LOG_PATH"
         item_checking_error_flag=true
         error_flag=true
       fi
@@ -28,20 +30,20 @@ checking_language () {
       compare_file_line=$?
 
       if [ $compare_file_line != $main_lang_file_line ]; then
-        echo "${RED}[✗] $entry between $lang and $main_lang languages not same line${RESET_COLOR}"
+        echo "${RED}[✗] $entry between $lang and $main_lang languages not same line${RESET_COLOR}\n" >> "$CHECKING_ERROR_LOG_PATH"
         item_checking_error_flag=true
         error_flag=true
       fi
     done
 
     if [ $item_checking_error_flag = false ]; then
-        echo "${GREEN}[✓] $entry${RESET_COLOR} files are matched."
+        echo "${GREEN}[✓] $entry${RESET_COLOR} files are matched.\n" >> "$CHECKING_ERROR_LOG_PATH"
     fi
   done
 
   checking_language_result=$(php -q "$DIR"/check_language_support.php $main_lang)
   if [ "$checking_language_result" != '' ]; then
-      echo "\n${RED}[✗] $checking_language_result${RESET_COLOR}"
+      echo "${RED}[✗] $checking_language_result${RESET_COLOR}\n" >> "$CHECKING_ERROR_LOG_PATH"
       error_flag=true
   fi
 
@@ -50,6 +52,6 @@ checking_language () {
   fi
 }
 
-echo "${BLUE}- Checking consistency of language translation files:${RESET_COLOR}"
+echo "${BLUE}- Checking consistency of language translation files:${RESET_COLOR}\n" >> "$CHECKING_ERROR_LOG_PATH"
 checking_language
 exit $?

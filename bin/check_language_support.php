@@ -1,5 +1,4 @@
 <?php
-//require __DIR__ . '/../../../../vendor/autoload.php';
 require './vendor/autoload.php';
 const LANGUAGE_DIR = './resources/lang/';
 $main_language = $argv[1];
@@ -13,6 +12,7 @@ foreach ($dir as $file) {
             exit();
         }
         $compare_language_data = require LANGUAGE_DIR . "$lang_code/$file";
+
         if (!compareLanguageFile(
             [
                 'language_code' => $main_language,
@@ -45,6 +45,10 @@ function compareLanguageFile($main_language_data, $compare_language_data, $fileN
     }
 
     return true;
+}
+
+function config ($interger) {
+    return 0;
 }
 
 exit();
